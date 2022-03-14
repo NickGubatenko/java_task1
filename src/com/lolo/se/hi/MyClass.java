@@ -7,11 +7,25 @@ import java.lang.Math;
 public class MyClass {
     public static void main(String[] args) throws IOException {
 
+        String lang = System.getProperty("user.language");
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Enter task (1 - factorial, 2 - square root):");
+
+        if (lang.equals("ru")) {
+            System.out.print("Введите задачу (1 - факториал, 2 - квадратный корень):");
+        } else {
+            System.out.print("Enter task (1 - factorial, 2 - square root):");
+        }
+
         int task_selector = Integer.parseInt(br.readLine());
 
-        System.out.print("Enter Integer:");
+
+        if (lang.equals("ru")) {
+            System.out.print("Введите целое число:");
+        } else {
+            System.out.print("Enter Integer:");
+        }
+
         int number = 0;
         try {
             number = Integer.parseInt(br.readLine());
@@ -30,7 +44,7 @@ public class MyClass {
 
         } else if (task_selector == 2) { //square root
             double sq_root = Math.sqrt(number);
-            System.out.println("sqare root of " + number + ": " + sq_root);
+            System.out.println("square root of " + number + ": " + sq_root);
 
         } else { //wrong selector
             System.err.println("Invalid selector!");
