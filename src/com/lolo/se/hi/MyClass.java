@@ -8,6 +8,20 @@ import java.lang.Math;
 public class MyClass {
     public static void main(String[] args) throws IOException {
 
+        String everything;
+        try (BufferedReader br = new BufferedReader(new FileReader("src/com/lolo/se/hi/license"))) {
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+            everything = sb.toString();
+        }
+        System.out.print(everything);
+
         String lang = System.getProperty("user.language");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
