@@ -4,23 +4,26 @@ import java.lang.Math;
 
 public class MyClass {
 
-    static void showTerminationMessage(){
+    static void showTerminationMessage() {
         System.out.println("License is not accepted. Program will be terminated");
     }
 
-    static boolean isRussianLanguage(){
+    static boolean isRussianLanguage() {
         String lang = System.getProperty("user.language");
         return lang.equals("ru");
     }
 
-    static void handleTasks() throws IOException {
+    static int taskSelector() throws IOException {
         if (isRussianLanguage()) {
             System.out.print("Введите задачу (1 - факториал, 2 - квадратный корень):");
         } else {
             System.out.print("Enter task (1 - factorial, 2 - square root):");
         }
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int task_selector = Integer.parseInt(br.readLine());
+        return Integer.parseInt(br.readLine());
+    }
+
+    static int getNumber() throws IOException {
         if (isRussianLanguage()) {
             System.out.print("Введите целое число:");
         } else {
@@ -28,20 +31,24 @@ public class MyClass {
         }
         int number = 0;
         try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             number = Integer.parseInt(br.readLine());
         } catch (NumberFormatException nfe) {
             System.err.println("Invalid Format!");
         }
+        return number;
+    }
 
-        if (task_selector == 1) {
-            calcFactorial(number);
-        } else if (task_selector == 2) {
-            calcSquareRoot(number);
+    static void handleTasks() throws IOException {
+        int task = taskSelector();
+        if (task == 1) {
+            calcFactorial(getNumber());
+        } else if (task == 2) {
+            calcSquareRoot(getNumber());
         } else {
             System.err.println("Invalid selector!");
         }
     }
-
 
     static boolean isLicenseAccepted() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
