@@ -2,85 +2,17 @@ package com.lolo.se.hi;
 import java.io.*;
 import java.lang.Math;
 
-
-class UserInterface {
-    public static void showTerminationMessage() {
-        System.out.println("License is not accepted. Program will be terminated");
-    }
-
-    public static void showWrongSelectorMessage() {
-        System.err.println("Invalid selector!");
-    }
-
-    public static boolean isRussianLanguage() {
-        String lang = System.getProperty("user.language");
-        return lang.equals("ru");
-    }
-
-    public static int taskSelector() throws IOException {
-        if (isRussianLanguage()) {
-            System.out.print("Введите задачу (1 - факториал, 2 - квадратный корень):");
-        } else {
-            System.out.print("Enter task (1 - factorial, 2 - square root):");
-        }
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return Integer.parseInt(br.readLine());
-    }
-
-    public static int getNumber() throws IOException {
-        if (isRussianLanguage()) {
-            System.out.print("Введите целое число:");
-        } else {
-            System.out.print("Enter Integer:");
-        }
-        int number = 0;
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            number = Integer.parseInt(br.readLine());
-        } catch (NumberFormatException nfe) {
-            System.err.println("Invalid Format!");
-        }
-        return number;
-    }
-
-    public static void showResult(double result) {
-        System.out.println("result = " + result);
-    }
-
-    public static boolean isLicenseAccepted() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String licenseAccepted = br.readLine();
-        return licenseAccepted.equals("y");
-    }
-
-    public static void showLicenseAgreement() throws IOException {
-        File resourceFile = new File("src/com/lolo/se/hi/license");
-        String path = resourceFile.getPath();
-        String everything;
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
-            }
-            everything = sb.toString();
-        }
-        System.out.print(everything);
-    }
-}
-
 public class MyClass {
+    public static final UserInterface ui = new UserInterface();
 
     static void handleTasks() throws IOException {
-        int task = UserInterface.taskSelector();
+        int task = ui.taskSelector();
         if (task == 1) {
-            calcFactorial(UserInterface.getNumber());
+            calcFactorial(ui.getNumber());
         } else if (task == 2) {
-            calcSquareRoot(UserInterface.getNumber());
+            calcSquareRoot(ui.getNumber());
         } else {
-            UserInterface.showWrongSelectorMessage();
+            ui.showWrongSelectorMessage();
         }
     }
 
@@ -91,20 +23,20 @@ public class MyClass {
                 factorial = factorial * i;
             }
         }
-        UserInterface.showResult(factorial);
+        ui.showResult(factorial);
     }
 
     static void calcSquareRoot(int number) {
         double sq_root = Math.sqrt(number);
-        UserInterface.showResult(sq_root);
+        ui.showResult(sq_root);
     }
 
     public static void main(String[] args) throws IOException {
-        UserInterface.showLicenseAgreement();
-        if (UserInterface.isLicenseAccepted()) {
+        ui.showLicenseAgreement();
+        if (ui.isLicenseAccepted()) {
             handleTasks();
         } else {
-            UserInterface.showTerminationMessage();
+            ui.showTerminationMessage();
 
         }
     }
