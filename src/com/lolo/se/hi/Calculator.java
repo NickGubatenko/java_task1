@@ -3,10 +3,10 @@ package com.lolo.se.hi;
 import java.io.IOException;
 
 public class Calculator {
-    private final UserInterface ui;
-    private final TaskExecution te;
+    private final CalculatorViewConsole ui;
+    private final CalculatorPresenter te;
 
-    public Calculator(UserInterface ui, TaskExecution te) {
+    public Calculator(CalculatorViewConsole ui, CalculatorPresenter te) {
         this.ui = ui;
         this.te = te;
     }

@@ -2,7 +2,7 @@ package com.lolo.se.hi;
 
 import java.io.*;
 
-public class UserInterface {
+public class CalculatorViewConsole {
     void showTerminationMessage() {
         System.out.println("License is not accepted. Program will be terminated");
     }
