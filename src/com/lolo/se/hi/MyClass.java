@@ -2,18 +2,22 @@ package com.lolo.se.hi;
 import java.io.*;
 import java.lang.Math;
 
-public class MyClass {
 
-    static void showTerminationMessage() {
+class UserInterface {
+    public static void showTerminationMessage() {
         System.out.println("License is not accepted. Program will be terminated");
     }
 
-    static boolean isRussianLanguage() {
+    public static void showWrongSelectorMessage() {
+        System.err.println("Invalid selector!");
+    }
+
+    public static boolean isRussianLanguage() {
         String lang = System.getProperty("user.language");
         return lang.equals("ru");
     }
 
-    static int taskSelector() throws IOException {
+    public static int taskSelector() throws IOException {
         if (isRussianLanguage()) {
             System.out.print("Введите задачу (1 - факториал, 2 - квадратный корень):");
         } else {
@@ -23,7 +27,7 @@ public class MyClass {
         return Integer.parseInt(br.readLine());
     }
 
-    static int getNumber() throws IOException {
+    public static int getNumber() throws IOException {
         if (isRussianLanguage()) {
             System.out.print("Введите целое число:");
         } else {
@@ -39,24 +43,17 @@ public class MyClass {
         return number;
     }
 
-    static void handleTasks() throws IOException {
-        int task = taskSelector();
-        if (task == 1) {
-            calcFactorial(getNumber());
-        } else if (task == 2) {
-            calcSquareRoot(getNumber());
-        } else {
-            System.err.println("Invalid selector!");
-        }
+    public static void showResult(double result) {
+        System.out.println("result = " + result);
     }
 
-    static boolean isLicenseAccepted() throws IOException {
+    public static boolean isLicenseAccepted() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String licenseAccepted = br.readLine();
         return licenseAccepted.equals("y");
     }
 
-    static void showLicenseAgreement() throws IOException {
+    public static void showLicenseAgreement() throws IOException {
         File resourceFile = new File("src/com/lolo/se/hi/license");
         String path = resourceFile.getPath();
         String everything;
@@ -72,6 +69,20 @@ public class MyClass {
         }
         System.out.print(everything);
     }
+}
+
+public class MyClass {
+
+    static void handleTasks() throws IOException {
+        int task = UserInterface.taskSelector();
+        if (task == 1) {
+            calcFactorial(UserInterface.getNumber());
+        } else if (task == 2) {
+            calcSquareRoot(UserInterface.getNumber());
+        } else {
+            UserInterface.showWrongSelectorMessage();
+        }
+    }
 
     static void calcFactorial(int number) {
         int factorial = 1;
@@ -80,22 +91,21 @@ public class MyClass {
                 factorial = factorial * i;
             }
         }
-        System.out.println("factorial = " + factorial);
+        UserInterface.showResult(factorial);
     }
-
 
     static void calcSquareRoot(int number) {
         double sq_root = Math.sqrt(number);
-        System.out.println("square root of " + number + ": " + sq_root);
+        UserInterface.showResult(sq_root);
     }
 
-
     public static void main(String[] args) throws IOException {
-        showLicenseAgreement();
-        if (isLicenseAccepted()) {
+        UserInterface.showLicenseAgreement();
+        if (UserInterface.isLicenseAccepted()) {
             handleTasks();
         } else {
-            showTerminationMessage();
+            UserInterface.showTerminationMessage();
+
         }
     }
 }
