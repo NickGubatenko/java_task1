@@ -2,22 +2,25 @@ package com.lolo.se.hi;
 
 import java.io.IOException;
 import java.lang.Math;
+//import static com.lolo.se.hi.CalculatorViewConsole.CALCULATE_FACTORIAL;
+//import static com.lolo.se.hi.CalculatorViewConsole.CALCULATE_SQUARE_ROOT;
+
 
 public class CalculatorPresenter {
     private final CalculatorViewConsole ui;
+
 
     public CalculatorPresenter(CalculatorViewConsole ui) {
         this.ui = ui;
     }
 
     void handleTasks() throws IOException {
-        int task = ui.taskSelector();
-        if (task == 1) {
-            calcFactorial(ui.getNumber());
-        } else if (task == 2) {
-            calcSquareRoot(ui.getNumber());
-        } else {
-            ui.showWrongSelectorMessage();
+        CalculatorViewConsole.TaskType task = ui.taskSelector();
+
+        switch (task) {
+            case CALCULATE_FACTORIAL   -> calcFactorial(ui.getNumber());
+            case CALCULATE_SQUARE_ROOT -> calcSquareRoot(ui.getNumber());
+            default                    -> ui.showWrongSelectorMessage();
         }
     }
 
