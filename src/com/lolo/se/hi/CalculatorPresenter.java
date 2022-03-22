@@ -4,6 +4,7 @@ import java.lang.Math;
 
 public class CalculatorPresenter {
     private final CalculatorView ui;
+    private final FactorialCacheChecker factorialCacheChecker = new FactorialCacheChecker();
 
     public CalculatorPresenter(CalculatorView ui) {
         this.ui = ui;
@@ -24,10 +25,17 @@ public class CalculatorPresenter {
      */
     private void calcFactorial(int number) {
         int factorial = 1;
-        if (number > 0) {
-            for (int i = 2; i <= number; i++) {
-                factorial = factorial * i;
+        int CACHED_FACTORIAL_NOT_FOUND_CODE = 0;
+        int factorialCacheResult = factorialCacheChecker.getCachedFactorial(number);
+        if (factorialCacheResult == CACHED_FACTORIAL_NOT_FOUND_CODE) {
+            if (number > 0) {
+                for (int i = 2; i <= number; i++) {
+                    factorial = factorial * i;
+                }
             }
+            factorialCacheChecker.addFactorialToCache(number, factorial);
+        } else {
+            factorial = factorialCacheResult;
         }
         ui.showResult(factorial);
     }
