@@ -36,4 +36,10 @@ public class CalculatorViewAlternativeConsole implements CalculatorView {
     public void showLicenseAgreement() {
 
     }
+
+    @Override
+    public boolean isContinueTask() {
+
+        return false;
+    }
 }

@@ -65,6 +65,19 @@ public class CalculatorViewConsole implements CalculatorView {
         }
     }
 
+    public boolean isContinueTask() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Continue? y/n");
+        try {
+            String continueTask = br.readLine();
+            return continueTask.equals("y");
+        } catch (IOException exception) {
+            licenseReadErrorMessage();
+            return false;
+        }
+    }
+
+
     private void licenseReadErrorMessage() {
         System.out.println("License agreement can't be shown. The program will be closed");
     }

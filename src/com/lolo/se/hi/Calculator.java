@@ -12,7 +12,13 @@ public class Calculator {
     public void run() {
         ui.showLicenseAgreement();
         if (ui.isLicenseAccepted()) {
+            boolean isContinueTask = true;
+            while (isContinueTask) {
                 te.handleTasks();
+                isContinueTask = ui.isContinueTask();
+            }
+
+
         } else {
             ui.showTerminationMessage();
         }
