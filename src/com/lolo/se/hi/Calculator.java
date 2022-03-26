@@ -15,10 +15,9 @@ public class Calculator {
             boolean isContinueTask = true;
             while (isContinueTask) {
                 te.handleTasks();
+                ui.ShowContinueTaskMessage();
                 isContinueTask = ui.isContinueTask();
             }
-
-
         } else {
             ui.showTerminationMessage();
         }

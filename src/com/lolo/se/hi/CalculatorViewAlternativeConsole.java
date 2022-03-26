@@ -38,6 +38,11 @@ public class CalculatorViewAlternativeConsole implements CalculatorView {
     }
 
     @Override
+    public void ShowContinueTaskMessage() {
+
+    }
+
+    @Override
     public boolean isContinueTask() {
 
         return false;

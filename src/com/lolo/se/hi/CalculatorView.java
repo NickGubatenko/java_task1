@@ -35,5 +35,6 @@ public interface CalculatorView {
     void showResult(double result);
     boolean isLicenseAccepted();
     void showLicenseAgreement();
+    void ShowContinueTaskMessage();
     boolean isContinueTask();
 }

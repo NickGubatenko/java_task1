@@ -1,8 +1,11 @@
 package com.lolo.se.hi;
 
 import java.io.*;
+import java.util.Locale;
 
 public class CalculatorViewConsole implements CalculatorView {
+    private final String LICENSE_ERROR_MESSAGE = "License agreement can't be shown. The program will be closed";
+    private final String USER_INPUT_ERROR_MESSAGE = "User input error. The program will be closed";
 
     public void showTerminationMessage() {
         System.out.println("License is not accepted. Program will be terminated");
@@ -15,6 +18,25 @@ public class CalculatorViewConsole implements CalculatorView {
     private boolean isRussianLanguage() {
         String lang = System.getProperty("user.language");
         return lang.equals("ru");
+    }
+
+    private void ShowErrorMessage(String errorMessage) {
+        System.out.println(errorMessage);
+    }
+
+    public void ShowContinueTaskMessage() {
+        System.out.println("Continue task execution? Y/N");
+    }
+
+    private boolean isInputYesORNo(String errorMessage) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String input = br.readLine().toLowerCase(Locale.ROOT);
+            return input.equals("y");
+        } catch (IOException exception) {
+            ShowErrorMessage(errorMessage);
+            return false;
+        }
     }
 
     public CalculatorView.TaskType taskSelector() {
@@ -50,36 +72,16 @@ public class CalculatorViewConsole implements CalculatorView {
         return number;
     }
 
-   public void showResult(double result) {
+    public void showResult(double result) {
         System.out.println("result = " + result);
     }
 
     public boolean isLicenseAccepted() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            String licenseAccepted = br.readLine();
-            return licenseAccepted.equals("y");
-        } catch (IOException exception) {
-            licenseReadErrorMessage();
-            return false;
-        }
+        return isInputYesORNo(LICENSE_ERROR_MESSAGE);
     }
 
     public boolean isContinueTask() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Continue? y/n");
-        try {
-            String continueTask = br.readLine();
-            return continueTask.equals("y");
-        } catch (IOException exception) {
-            licenseReadErrorMessage();
-            return false;
-        }
-    }
-
-
-    private void licenseReadErrorMessage() {
-        System.out.println("License agreement can't be shown. The program will be closed");
+        return isInputYesORNo(USER_INPUT_ERROR_MESSAGE);
     }
 
     public void showLicenseAgreement() {
@@ -98,7 +100,7 @@ public class CalculatorViewConsole implements CalculatorView {
             everything = sb.toString();
             System.out.print(everything);
         } catch (IOException exception) {
-            licenseReadErrorMessage();
+            ShowErrorMessage(LICENSE_ERROR_MESSAGE);
         }
     }
 }
