@@ -3,9 +3,11 @@ package com.lolo.se.hi;
 public class CalculateFactorialActionImpl implements CalculateFactorialAction {
     private final CachedData<Integer> factorialCacheChecker = new CachedDataImpl();
 
+
     @Override
     public int execute(int number) {
         int factorial = 1;
+        factorialCacheChecker.initCache();
         if (factorialCacheChecker.isCached(number)) {
             factorial = factorialCacheChecker.getCached(number);
         } else {
